@@ -1,3 +1,4 @@
+#keeps track of how many comparisons made when sorting arr for analysing efficiency
 class KeyComparisons:
     def __init__(self):
         self.key_comparisons = 0
