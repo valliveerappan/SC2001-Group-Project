@@ -36,7 +36,7 @@ def merge_sort(arr, comp_obj: KeyComparisons):
     return merge(left, right, comp_obj)
 
 def main():
-    sizes = list(range(10, 10000000, 100))  # Different input sizes from 100 to 1000
+    sizes = list(range(10, 10000000, 100))  # Different input sizes here
     comparisons = []
     time_taken = []
     for n in sizes:
@@ -49,7 +49,7 @@ def main():
         time_taken.append(elapsed_time) 
         comparisons.append(comp_obj.get())
         print(f"Input size: {n}, Key comparisons: {comp_obj.get()}, Time taken: {elapsed_time:.4f} seconds ")
-    with open('merge_sort_results.csv', mode='w', newline='') as file:
+    with open('merge_sort_results.csv', mode='w', newline='') as file:   #makes a csv to save the results for you in case you dont want to run the program again
         writer = csv.writer(file)
         writer.writerow(['Input Size', 'Key Comparisons', 'Time Taken'])  # header
         for size, comp, t in zip(sizes, comparisons, time_taken):
