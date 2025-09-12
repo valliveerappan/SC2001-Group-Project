@@ -44,7 +44,7 @@ def main():
         merge_sort(input_data.copy(), comp_obj)  
         comparisons.append(comp_obj.get())
         print(f"Input size: {n}, Key comparisons: {comp_obj.get()}")
-    with open('merge_sort_results.csv', mode='w', newline='') as file:
+    with open('merge_sort_results.csv', mode='w', newline='') as file:#this is to create and import results to a csv in case you dont want to run the program again
         writer = csv.writer(file)
         writer.writerow(['Input Size', 'Key Comparisons'])  # header
         for size, comp in zip(sizes, comparisons):
