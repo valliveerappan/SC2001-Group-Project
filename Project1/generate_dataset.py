@@ -11,7 +11,7 @@ def generate_input_sizes():
     return input_sizes
 
 def generate_datasets(seed=42):
-    random.seed(seed)
+    random.seed(seed)  #initializes the random number generator with a specific starting value (seed).tells Python's random module:“Start generating random numbers from this exact point.”
     input_sizes = generate_input_sizes()
     input_data = []
     for s in input_sizes:
