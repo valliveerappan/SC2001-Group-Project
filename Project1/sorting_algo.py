@@ -19,16 +19,21 @@ def insertion_sort(arr, comp_obj: KeyComparisons):
 
 def merge(list1, list2, comp_obj: KeyComparisons):
     sorted_list = []
-    while list1 and list2:
-        #compare first elements of both lists
-        if comp_obj.less_than_or_equal(list1[0], list2[0]):
-            #if first element of list1 is smaller, append to sorted list
-            sorted_list.append(list1.pop(0))
+    i = j = 0
+    len1, len2 = len(list1), len(list2)
+
+    while i < len1 and j < len2:
+        if comp_obj.less_than_or_equal(list1[i], list2[j]):
+            sorted_list.append(list1[i])
+            i += 1
         else:
-            #otherwise append first element of list2
-            sorted_list.append(list2.pop(0))
-    #once one list is empty, append remaining elements from other list
-    return sorted_list + list1 + list2
+            sorted_list.append(list2[j])
+            j += 1
+
+    # Append the remaining elements from both lists
+    sorted_list.extend(list1[i:])
+    sorted_list.extend(list2[j:])
+    return sorted_list
 
 def merge_sort(arr, comp_obj: KeyComparisons):
     #arrays with just 0 or 1 elements are already sorted, so just return
