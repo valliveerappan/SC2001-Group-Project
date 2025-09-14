@@ -20,12 +20,21 @@ class KeyComparisons:
 
 def merge(list1, list2, comp_obj: KeyComparisons):
     sorted_list = []
-    while list1 and list2:
-        if comp_obj.less_than_or_equal(list1[0], list2[0]):
-            sorted_list.append(list1.pop(0))
+    i = j = 0
+    len1, len2 = len(list1), len(list2)
+
+    while i < len1 and j < len2:
+        if comp_obj.less_than_or_equal(list1[i], list2[j]):
+            sorted_list.append(list1[i])
+            i += 1
         else:
-            sorted_list.append(list2.pop(0))
-    return sorted_list + list1 + list2
+            sorted_list.append(list2[j])
+            j += 1
+
+    # Append the remaining elements from both lists
+    sorted_list.extend(list1[i:])
+    sorted_list.extend(list2[j:])
+    return sorted_list
 
 def merge_sort(arr, comp_obj: KeyComparisons):
     if len(arr) <= 1:
