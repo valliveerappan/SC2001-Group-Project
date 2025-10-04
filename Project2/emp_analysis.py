@@ -62,7 +62,7 @@ def plot_edges_runtime_V10():
     plt.figure(figsize=(10, 6))
     plt.plot(edges_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
     plt.plot(edges_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time')
-    plt.title("Dijkstra Algorithm Running Time vs. Number of Edges (Averaged), V=10")
+    plt.title("Dijkstra (Matrix+Array) Runtime vs. Number of Edges (Averaged), V=10")
     plt.xlabel("Number of Edges")
     plt.ylabel("Running Time (seconds)")
     plt.legend()
@@ -91,7 +91,7 @@ def plot_edges_runtime_V100():
     plt.figure(figsize=(10, 6))
     plt.plot(edges_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
     plt.plot(edges_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time')
-    plt.title("Dijkstra Algorithm Running Time vs. Number of Edges, V=100")
+    plt.title("Dijkstra (Matrix+Array) Runtime vs. Number of Edges, V=100")
     plt.xlabel("Number of Edges")
     plt.ylabel("Running Time (seconds)")
     plt.legend()
@@ -118,7 +118,7 @@ def plot_nodes_runtime_E10():
     plt.figure(figsize=(10, 6))
     plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
     plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time')
-    plt.title("Dijkstra Algorithm Running Time vs. Number of Nodes (Averaged), E=10")
+    plt.title("Dijkstra (Matrix+Array) Runtime vs. Number of Nodes (Averaged), E=10")
     plt.xlabel("Number of Nodes")
     plt.ylabel("Running Time (seconds)")
     plt.legend()
@@ -145,7 +145,7 @@ def plot_nodes_runtime_E100():
     plt.figure(figsize=(10, 6))
     plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
     plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time')
-    plt.title("Dijkstra Algorithm Running Time vs. Number of Nodes (Averaged), E=100")
+    plt.title("Dijkstra (Matrix+Array) Runtime vs. Number of Nodes (Averaged), E=100")
     plt.xlabel("Number of Nodes")
     plt.ylabel("Running Time (seconds)")
     plt.legend()
@@ -172,7 +172,7 @@ def plot_nodes_runtime_E1000():
     plt.figure(figsize=(10, 6))
     plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
     plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time')
-    plt.title("Dijkstra Algorithm Running Time vs. Number of Nodes (Averaged), E=1000")
+    plt.title("Dijkstra (Matrix+Array) Runtime vs. Number of Nodes (Averaged), E=1000")
     plt.xlabel("Number of Nodes")
     plt.ylabel("Running Time (seconds)")
     plt.legend()
@@ -210,6 +210,147 @@ def plot_partB_complete_graph():
     return complete_list
 
 # ------------------------------------------
+# Dijkstra runtime vs number of edges, V=10
+# ------------------------------------------
+def plot_partB_edges_runtime_V10():
+    V = 10
+    max_edges = V * (V - 1)
+
+    edges_range = list(range(1, max_edges + 1))
+    emp_times = []
+    theor_times = []
+
+    for E in edges_range:
+        total_time = sum(measure_runtime2(V, E) for _ in range(5)) / 5
+        emp_times.append(total_time)
+        theor_times.append((E + V) * math.log(V+1) * (10 ** -6)) 
+
+    scaling_fac = emp_times[1] / theor_times[1] if len(theor_times) > 1 else 1
+    scaled_theor_times = [t * scaling_fac for t in theor_times]
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(edges_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
+    plt.plot(edges_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Runtime (O((V+E)logV))')
+    plt.title("Dijkstra (List+Heap) Runtime vs. Number of Edges, V=10")
+    plt.xlabel("Number of Edges")
+    plt.ylabel("Running Time (seconds)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+# ------------------------------------------
+# Dijkstra runtime vs number of edges, V=100
+# ------------------------------------------
+def plot_partB_edges_runtime_V100():
+    V = 100
+    max_edges = V * (V - 1)
+
+    edges_range = list(range(1, max_edges + 1, 100))  
+    emp_times = []
+    theor_times = []
+
+    for E in edges_range:
+        total_time = sum(measure_runtime2(V, E) for _ in range(5)) / 5
+        emp_times.append(total_time)
+        theor_times.append((E + V) * math.log(V + 1) * (10 ** -6)) 
+
+    scaling_fac = emp_times[10] / theor_times[10] if len(theor_times) > 10 else 1
+    scaled_theor_times = [t * scaling_fac for t in theor_times]
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(edges_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
+    plt.plot(edges_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Runtime (O((V+E)logV))')
+    plt.title("Dijkstra (List+Heap) Runtime vs. Number of Edges, V=100")
+    plt.xlabel("Number of Edges")
+    plt.ylabel("Running Time (seconds)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+# ------------------------------------------
+# Dijkstra runtime vs number of nodes, E=10
+# ------------------------------------------
+def plot_partB_nodes_runtime_E10():
+    E = 10
+    node_range = list(range(4, 101))
+    emp_times = []
+    theor_times = []
+
+    for V in node_range:
+        total_time = sum(measure_runtime2(V, E) for _ in range(5)) / 5
+        emp_times.append(total_time)
+        theor_times.append((E + V) * math.log(V+1) * (10 ** -6))
+
+    scaling_fac = emp_times[10] / theor_times[10] if len(theor_times) > 10 else 1
+    scaled_theor_times = [t * scaling_fac for t in theor_times]
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
+    plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time (O((V+E)logV))')
+    plt.title("Dijkstra (List+Heap) Runtime vs. Number of Nodes, E=10")
+    plt.xlabel("Number of Nodes")
+    plt.ylabel("Running Time (seconds)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+# ------------------------------------------
+# Dijkstra runtime vs number of nodes, E=100
+# ------------------------------------------
+def plot_partB_nodes_runtime_E100():
+    E = 100
+    node_range = list(range(11, 200))
+    emp_times = []
+    theor_times = []
+
+    for V in node_range:
+        total_time = sum(measure_runtime2(V, E) for _ in range(5)) / 5
+        emp_times.append(total_time)
+        theor_times.append((E + V) * math.log(V+1) * (10 ** -6))
+
+    scaling_fac = emp_times[50] / theor_times[50] if len(theor_times) > 50 else 1
+    scaled_theor_times = [t * scaling_fac for t in theor_times]
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
+    plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time (O((V+E)logV))')
+    plt.title("Dijkstra (List+Heap) Runtime vs. Number of Nodes, E=100")
+    plt.xlabel("Number of Nodes")
+    plt.ylabel("Running Time (seconds)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+
+# ------------------------------------------
+# Dijkstra runtime vs number of nodes, E=1000
+# ------------------------------------------
+def plot_partB_nodes_runtime_E1000():
+    E = 1000
+    node_range = list(range(50, 301))
+    emp_times = []
+    theor_times = []
+
+    for V in node_range:
+        total_time = sum(measure_runtime2(V, E) for _ in range(5)) / 5
+        emp_times.append(total_time)
+        theor_times.append((E + V) * math.log(V+1) * (10 ** -6))
+
+    scaling_fac = emp_times[100] / theor_times[100] if len(theor_times) > 100 else 1
+    scaled_theor_times = [t * scaling_fac for t in theor_times]
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(node_range, emp_times, 'bo-', label='Empirical Running Time (Averaged)')
+    plt.plot(node_range, scaled_theor_times, 'r--x', label='Scaled Theoretical Running Time (O((V+E)logV))')
+    plt.title("Dijkstra (List+Heap) Runtime vs. Number of Nodes, E=1000")
+    plt.xlabel("Number of Nodes")
+    plt.ylabel("Running Time (seconds)")
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+
+# ------------------------------------------
 # Combined CPU time: Array vs List
 # ------------------------------------------
 def plot_cpu_time_comparison(complete_arr, complete_list):
@@ -240,5 +381,16 @@ if __name__ == "__main__":
     #part B
     complete_list = plot_partB_complete_graph()
 
+    #part b fixed V
+    plot_partB_edges_runtime_V10()
+    plot_partB_edges_runtime_V100()
+
+    #part b fixed E
+    plot_partB_nodes_runtime_E10()
+    plot_partB_nodes_runtime_E100()
+    plot_partB_nodes_runtime_E1000()
+
     #part c 
     plot_cpu_time_comparison(complete_arr, complete_list)
+
+    print("All 13 plots generated")
