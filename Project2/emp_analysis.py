@@ -29,7 +29,7 @@ def plot_partA_complete_graph():
     theor_runtime = [n ** 2 * scaling_fac for n in complete_arr["x"]]
 
     plt.figure(figsize=(15, 10))
-    plt.plot(complete_arr["x"], complete_arr["y"], label="Complete Graph", color="blue")
+    plt.plot(complete_arr["x"], complete_arr["y"], label="Empirical Runtime", color="blue")
     plt.plot(complete_arr["x"], theor_runtime, label="Theoretical Runtime (O(V^2))", color="red", linestyle="--")
     plt.xlabel("Number of vertices (n)")
     plt.ylabel("Time Taken (ms)")
