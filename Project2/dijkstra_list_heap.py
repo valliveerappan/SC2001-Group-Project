@@ -3,7 +3,8 @@ from collections import defaultdict
 from numpy import inf
 
 def dijkstra_list_heap(graph: dict, start: int):
-    n = len(graph)
+    n = max(max(graph.keys()), max((v for neighbors in graph.values() for v, _ in neighbors))) + 1
+
     distances = [inf] * n
     distances[start] = 0
     visited = [False] * n
