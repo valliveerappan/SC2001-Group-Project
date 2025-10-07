@@ -199,7 +199,7 @@ def plot_partB_complete_graph():
         complete_list["y"].append(runtime)
 
     plt.figure(figsize=(15, 10))
-    plt.plot(complete_list["x"], complete_list["y"], label="Complete Graph", color="blue")
+    plt.plot(complete_list["x"], complete_list["y"], label="Empirical Runtime", color="blue")
     plt.xlabel("Number of vertices (n)")
     plt.ylabel("Time Taken (ms)")
     plt.title("Runtime of Dijkstra using Adj List and heap [Complete Graph]")
