@@ -13,7 +13,7 @@ from dijkstra_list_heap import dijkstra_list_heap
 def plot_partA_complete_graph():
     complete_arr = {"x": [], "y": []}
 
-    for n in range(4, 101):
+    for n in range(4, 201):
         complete_arr["x"].append(n)
         e = n * (n - 1)
         adj_mat = graph_generator(n, e)
@@ -185,7 +185,7 @@ def plot_nodes_runtime_E1000():
 def plot_partB_complete_graph():
     complete_list = {"x": [], "y": []}
 
-    for n in range(50, 201):
+    for n in range(4, 201):
         complete_list["x"].append(n)
         e = n * (n - 1)
         adj_mat = graph_generator(n, e)
